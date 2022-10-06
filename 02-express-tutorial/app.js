@@ -47,12 +47,36 @@ app.get('/api/products/:productID', (req, res) => {
 })
 
 // route parameter complex approach multiple id parameter
-// app.get('/api/products/:productID/reviews/:reviewID', (req, res) => {
-//     console.log(req)
-//     // console.log(req.params)
-//     res.send('hello world')
-// })
+app.get('/api/products/:productID/reviews/:reviewID', (req, res) => {
+    // console.log(req)
+    console.log(req.params)
+    res.send('hello world')
+})
 
+app.get('/api/v1/query', (req, res) => {
+    // console.log(req.query)
+    const { search, limit } = req.query
+    let sorted_products = [...path_data]
+
+    // display ang json data base sa query g search then mao ra pud iya e display
+    if(search){
+        sorted_products = sorted_products.filter(product => product.name.startsWith(search))
+    }
+
+    // display pila ang limit sa json data ex: if 4 naa sa json data and g limit nimo to 2, then 2 rapud ang iya e display
+    if(limit){
+        sorted_products = sorted_products.slice(0, Number(limit))
+    }
+    // if less than 1 then display ang message
+    if(sorted_products.length < 1){
+        // res.status(200).send('wala kapariha na match sa imo ge search')
+        // using json 
+        return res.status(200).json({ success: true, data: [] })
+    }
+    // only can only have 1 res(response) per request make sure to 'return' kai e call nya una 'res.status(200).json({ success: true, data: [] })' kai sa ani 'res.status(200).json(sorted_products)' make sure to return it as much as possible
+    return res.status(200).json(sorted_products)
+    // res.send('hello world')
+})
 
 app.listen(5000, () => {
     console.log('listening on port 5000')
