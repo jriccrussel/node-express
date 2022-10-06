@@ -2,20 +2,25 @@ const express = require('express')
 const fs = require('fs')
 const app = express()
 const { products } = require('./data')
-const path_data = './data.json'
+const path_data = require('./data.json')
 
 app.get('/', (req, res) => {
-    // using js data
-    // res.json([{ name: 'angels burger kollera'}, { name: 'asa na diay ko dapita' }])
+    res.status(200).send('<h1>Home Page</h1><br/><a href="/api/products">products</a>')
+}) 
 
-    // using json data
-    const data = fs.readFileSync(path_data, 'utf8')
-    const passing_data = JSON.parse(data)
-    res.send(passing_data)
-})
+app.get('/api/products', (req, res) => {
+    const new_product = path_data.map(product => {
+        const { id, name, image } = product
+        return { id, name, image }
+    })
 
-app.all('*', (req, res) => {
-    res.status(404).json({ error: 'error json' })
+    // new json data
+    res.json(new_product)
+    // json data
+    // res.json(path_data)
+
+    // js data
+    // res.json(products)    
 })
 
 app.listen(5000, () => {
