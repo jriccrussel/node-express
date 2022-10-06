@@ -1,17 +1,25 @@
 const express = require('express')
 const app = express()
 const { products } = require('./data')
+const path_data = require('./data.json')
 
 app.get('/', (req, res) => {
   res.send('<h1> Home Page</h1><a href="/api/products">products</a>')
 })
 app.get('/api/products', (req, res) => {
-  const newProducts = products.map((product) => {
+  const new_product = path_data.map(product => {
     const { id, name, image } = product
     return { id, name, image }
   })
 
-  res.json(newProducts)
+  // new json data
+  res.json(new_product)
+
+  // json data
+  // res.json(path_data)
+
+  // js data
+  // res.json(products)   
 })
 app.get('/api/products/:productID', (req, res) => {
   // console.log(req)
