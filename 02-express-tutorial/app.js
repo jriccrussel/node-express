@@ -16,6 +16,7 @@ app.get('/api/products', (req, res) => {
 
     // new json data
     res.json(new_product)
+    
     // json data
     // res.json(path_data)
 
