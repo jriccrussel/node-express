@@ -7,16 +7,27 @@ const path_data = require('./data.json')
 
 
 // to access 'logger' - pass nato as second argument sa 'app.get'
-app.get('/', logger, (req, res) => {
-    // const method = req.method
-    // const url = req.url
-    // const time = new Date().getFullYear()
-    // console.log(method, url, time)
+// app.get('/', logger, (req, res) => {
+//     res.send('Home')
+// })
+
+app.use(logger)
+
+app.get('/', (req, res) => {
     res.send('Home')
 })
 
+
 app.get('/about', (req, res) => {
     res.send('About')
+})
+
+app.get('/api/products', (req, res) => {
+    res.send('Products')
+})
+
+app.get('/api/items', (req, res) => {
+    res.send('Items')
 })
 
 app.listen(5000, () => {
