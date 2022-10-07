@@ -5,6 +5,8 @@ const app = express()
 const fs = require('fs')
 const { products } = require('./data')
 const path_data = require('./data.json')
+// thirda party middleware
+const morgan = require('morgan')
 
 // to access 'logger' - pass nato as second argument sa 'app.get'
 // app.get('/', logger, (req, res) => {
@@ -20,6 +22,14 @@ const path_data = require('./data.json')
 // to access multiple middleware function sa app.use we need to put ang middleware in an array
 // execution sa middleware is in order if logger ang mag una so cya mu una execute and right after ana ang authorize napud ang ma execute
 app.use([logger, authorize])
+
+// req => middleware => res
+
+// 1. use vs route 
+// 2. options - our own / express / third party
+// logger & authorize - ouw own middleware
+// app.use(express.static('./public')) // - express
+app.use(morgan('tiny')) // - third party middleware | - milisecond timer
 
 // after na set ang 'app.use(logger)' then pwdi na dayon e remove ang logger sa may 2nd arguement sa 'app.get' 
 app.get('/', (req, res) => {
