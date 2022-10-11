@@ -19,6 +19,7 @@ const morgan = require('morgan')
 // ang 1st argument sa 'app.use' kai path, since naa path kato naa path na '/api' kato rai naa access sa middleware and the rest na for Home, About wala access sa middleware
 // app.use('/api', logger)
 
+// app.use applies the middleware to all the routes
 // to access multiple middleware function sa app.use we need to put ang middleware in an array
 // execution sa middleware is in order if logger ang mag una so cya mu una execute and right after ana ang authorize napud ang ma execute
 app.use([logger, authorize])
