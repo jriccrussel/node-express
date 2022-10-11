@@ -22,6 +22,10 @@ const morgan = require('morgan')
 // static assets 
 app.use(express.static('./methods-public'))
 
+// parse(to split and analyze the data) form data
+// perform post request in url and g handle nato sa atong server to get our data
+app.use(express.urlencoded({ extended: false }))
+
 app.get('/api/people', (req, res) => {
     const data = fs.readFileSync(person_data, 'utf8')
     const passed_data = JSON.parse(data)
@@ -30,6 +34,15 @@ app.get('/api/people', (req, res) => {
 })
 
 // POST - applies 
+app.post('/login', (req, res) => {
+    const { name } = req.body
+    if(name){
+        return res.status(200).send(`Welcome ${name}`)
+    }
+    // console.log(req.body)
+    // res.send('POST')
+    res.status(200).send('Please provide credentials')
+})
 
 app.listen(5000, () => {
     console.log('listening on port 5000')
