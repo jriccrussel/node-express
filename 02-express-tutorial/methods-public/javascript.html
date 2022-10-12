@@ -44,13 +44,18 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      // we use javascript to send http request
       const result = document.querySelector('.result')
 
+      // fetch people data
       const fetchPeople = async () => {
         try {
+          // performing a get request
           const { data } = await axios.get('/api/people')
 
+        // fetch people from our server
           const people = data.data.map((person) => {
+            console.log("%c Line:58 🍷 person", "color:#2eafb0", person);
             return `<h5>${person.name}</h5>`
           })
           result.innerHTML = people.join('')
@@ -59,6 +64,7 @@
         }
       }
       fetchPeople()
+
       // submit form
       const btn = document.querySelector('.submit-btn')
       const input = document.querySelector('.form-input')
@@ -68,6 +74,7 @@
         const nameValue = input.value
 
         try {
+          // when submitting the form || were we sending our data
           const { data } = await axios.post('/api/people', { name: nameValue })
           const h5 = document.createElement('h5')
           h5.textContent = data.person
