@@ -63,7 +63,7 @@ app.get('/api/people', (req, res) => {
     res.status(200).json(person_data)
 })
 
-// add - js data
+// add - js data for postman
 // app.post('/api/postman/people', (req, res) => {
 //     const { name } = req.body
 //     if (!name) {
